@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Boolex</title>
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+
+    <script src="js/lib/jquery-1.10.2.min.js"></script>
+    <script src="js/exp_model.js"></script>
+    <script src="js/exp_view.js"></script>
+    <script src="js/exp.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: none;
+            outline: none;
+            position: relative;
+        }
+
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="expPanel"></div>
+
+<script>
+    var internal = false;
+
+    var expChangedCallback = function (expStr) {
+        console.log('changed internal');
+        internal = true;
+        location.hash = expStr;
+    };
+
+    var exp1;
+    if (location.hash) {
+        exp1 = exp('#expPanel', location.hash.substr(1), expChangedCallback);
+    } else {
+        var demo = 'and(or(==(color,black),==(color,blue)),or(and(>(screen size,13),<=(screen size,17)),contain(screen name,HD)),not(==(brand,Apple)),or(and(>(hdd,500G),>(ssd,128G)),>(ssd,256G)))';
+        exp1 = exp('#expPanel', '', expChangedCallback);
+        location.hash = demo;
+    }
+
+
+    $(window).on('hashchange', function (event) {
+        if (!internal) {
+            console.log('changed');
+            exp1.update(location.hash.substr(1));
+        }
+        internal = false;
+    });
+
+</script>
+
+<datalist id="exp-checks">
+    <option value="==">
+    <option value="!=">
+    <option value="&gt;">
+    <option value="&gt;=">
+    <option value="&lt;"><
+    <option value="&lt;=">
+    <option value="start with">
+    <option value="end with">
+    <option value="contain">
+    <option value="not contain">
+</datalist>
+
+</body>
+</html>
