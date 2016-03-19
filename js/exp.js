@@ -7,23 +7,24 @@ var exp = function (elemId, expStr, changedCallback) {
 
     view.render(exp1.obj, container);
 
-    var create = function (event) {
-        var elem = $(event.target).parent();
+    var create = function () {
+        var elem = $(this).parent();
         exp1.create();
         view.render(exp1.obj, container);
         changedCallback(exp1.toString());
     };
 
-    var append = function (event) {
-        var elem = $(event.target).parent().parent();
-        exp1.create(elem.attr('exp:id'));
+    var append = function () {
+        var elem = $(this).parent().parent();
+
+        exp1.create(elem.attr('boolex-id'));
         view.render(exp1.obj, container);
         changedCallback(exp1.toString());
     };
 
     var remove = function () {
         var elem = $(this).parent();
-        var expid = elem.attr('exp:id');
+        var expid = elem.attr('boolex-id');
         exp1.remove(expid);
 
         view.render(exp1.obj, container);
@@ -33,7 +34,7 @@ var exp = function (elemId, expStr, changedCallback) {
 
     var wrap = function (event) {
         var elem = $(event.target).parents('.boolex-row, .boolex-set').first();
-        var expid = elem.attr('exp:id');
+        var expid = elem.attr('boolex-id');
         exp1.wrap(expid, event.data);
 
         view.render(exp1.obj, container);
@@ -42,7 +43,7 @@ var exp = function (elemId, expStr, changedCallback) {
 
     var change = function (event) {
         var elem = $(event.target);
-        var expid = elem.parent().attr('exp:id');
+        var expid = elem.parent().attr('boolex-id');
         var val = elem.val();
 
         if (elem.hasClass('boolex-value')) {
