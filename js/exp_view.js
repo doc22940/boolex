@@ -1,83 +1,88 @@
-ExpView = {
-    render: function (obj, target) {
-        var html = ExpView._outHtml([], obj, null, null);
-        target.html(html.join(''));
-    },
+function BoolexView($targetElement) {
 
-    setError: function (elem) {
-        elem.addClass('exp-empty');
-    },
-
-    delError: function (elem) {
-        elem.removeClass('exp-empty');
-    },
-
-    _outLink: function (out, item, next, parent) {
+    function _outLink(out, item, next, parent) {
         if (parent) {
             if (next) {
-                out.push('<div class="exp-link exp-link-', item.type || 'row', '-', next.type || 'row', '">', parent.type, '</div>');
+                out.push('<div class="boolex-link boolex-link-', item.type || 'row', '-', next.type || 'row', '">', parent.type, '</div>');
             } else {
                 if (parent.type != 'not') {
-                    out.push('<div class="exp-link exp-link-end">', parent.type, '</div>');
+                    //out.push('<div class="boolex-link boolex-link-end">', parent.type, '</div>');
+                    out.push('<div class="boolex-link boolex-link-end"><i class="fa fa-plus"></i> </div>');
                 }
             }
         }
-    },
+    }
 
-    _outHtml: function (out, item, next, parent) {
+    function _outHtml(out, item, next, parent) {
         if (!item) {
-            out.push('<div class="exp-create-btn">Create</div>');
+            out.push('<div class="boolex-create-btn">Create</div>');
         } else if (item.type) {
             out.push(
-                '<div class="exp-set exp-set-', item.type, '" exp:id="', item.id, '">',
-                '<div class="exp-set-label">', item.type, '</div>'
+                '<div class="boolex-set boolex-set-', item.type, '" exp:id="', item.id, '">',
+                '<div class="boolex-set-label">', item.type, '</div>'
             );
 
             for (var i = 0; i < item.list.length; i++) {
-                ExpView._outHtml(out, item.list[i], i < item.list.length - 1 ? item.list[i + 1] : null, item);
+                _outHtml(out, item.list[i], i < item.list.length - 1 ? item.list[i + 1] : null, item);
             }
 
-            out.push('<div class="exp-del-btn"></div>');
+            out.push('<div class="boolex-del-btn"><i class="fa fa-remove"></i></div>');
 
-            ExpView._outLink(out, item, next, parent);
-            ExpView._outPopup(out);
+            _outLink(out, item, next, parent);
+            _outPopup(out);
 
             out.push('</div>');
         } else {
-            ExpView._outRow(out, item, next, parent);
+            _outRow(out, item, next, parent);
         }
         return out;
-    },
+    }
 
-    _outPopup: function (out) {
+
+    function _outPopup(out) {
         out.push(
-            '<div class="exp-more">',
-            '<div class="exp-popup">',
-            '<div class="exp-wrap exp-wrap-and">and</div>',
-            '<div class="exp-wrap exp-wrap-or">or</div>',
-            '<div class="exp-wrap exp-wrap-not">not</div>',
+            '<div class="boolex-more"><i class="fa fa-play-circle-o"></i> ',
+            '<div class="boolex-popup">',
+            '<div class="boolex-wrap boolex-wrap-and">and</div>',
+            '<div class="boolex-wrap boolex-wrap-or">or</div>',
+            '<div class="boolex-wrap boolex-wrap-not">not</div>',
             '</div>',
             '</div>'
         );
-    },
+    }
 
-    _outRow: function (out, item, next, parent) {
+    function _outRow(out, item, next, parent) {
         out.push(
-            '<div class="exp-row" exp:id="', item.id, '">',
-            '<input class="exp-field', item.field ? '' : ' exp-empty', '"',
+            '<div class="boolex-row" exp:id="', item.id, '">',
+            '<input class="boolex-field', item.field ? '' : ' boolex-empty', '"',
             ' placeholder="Field" type="text" value="', item.field, '">',
-            '<input class="exp-check', item.check ? '' : ' exp-empty', '"',
-            ' placeholder="Operator" type="text" list="exp-checks" value="', item.check, '">',
-            '<input class="exp-value"',
+            '<input class="boolex-check', item.check ? '' : ' boolex-empty', '"',
+            ' placeholder="Operator" type="text" list="boolex-checks" value="', item.check, '">',
+            '<input class="boolex-value"',
             '  placeholder="Value" value="', item.value, '">',
-            '<div class="exp-del-btn"></div>'
+            '<div class="boolex-del-btn"><i class="fa fa-remove"></i> </div>'
         );
 
-        ExpView._outPopup(out);
-        ExpView._outLink(out, item, next, parent);
+        _outPopup(out);
+        _outLink(out, item, next, parent);
 
         out.push('</div>');
 
         return out;
     }
-};
+
+
+    this.render = function (obj) {
+        var html = _outHtml([], obj, null, null);
+        $targetElement.html(html.join(''));
+    };
+
+    this.setError = function (elem) {
+        elem.addClass('boolex-empty');
+    };
+
+    this.delError = function (elem) {
+        elem.removeClass('boolex-empty');
+    };
+
+}
