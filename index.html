@@ -9,9 +9,9 @@
 
     <script src="http://code.jquery.com/jquery-2.2.2.min.js"></script>
 
-    <script src="js/exp_model.js"></script>
-    <script src="js/exp_view.js"></script>
-    <script src="js/exp.js"></script>
+    <script src="js/boolex-model.js"></script>
+    <script src="js/boolex-view.js"></script>
+    <script src="js/boolex.js"></script>
 
     <style>
         body {
@@ -36,10 +36,10 @@
 
     var exp1;
     if (location.hash) {
-        exp1 = exp('#expPanel', location.hash.substr(1), expChangedCallback);
+        exp1 = boolex('#expPanel', location.hash.substr(1), expChangedCallback);
     } else {
         var demo = 'and(or(==(color,black),==(color,blue)),or(and(>(screen size,13),<=(screen size,17)),contain(screen name,HD)),not(==(brand,Apple)),or(and(>(hdd,500G),>(ssd,128G)),>(ssd,256G)))';
-        exp1 = exp('#expPanel', '', expChangedCallback);
+        exp1 = boolex('#expPanel', '', expChangedCallback);
         location.hash = demo;
     }
 

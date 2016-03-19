@@ -1,8 +1,8 @@
-function ExpModel(strExpr) {
+function BoolexModel(strExpr) {
     this.update(strExpr);
 }
 
-ExpModel.prototype.update = function (strExpr) {
+BoolexModel.prototype.update = function (strExpr) {
     console.log('fromString');
     var index = 1;
 
@@ -76,7 +76,7 @@ ExpModel.prototype.update = function (strExpr) {
     this.index = index;
 };
 
-ExpModel.prototype.toString = function () {
+BoolexModel.prototype.toString = function () {
     console.log('toString');
     if (!this.obj) {
         return '';
@@ -104,7 +104,7 @@ ExpModel.prototype.toString = function () {
     return out.join('');
 };
 
-ExpModel.prototype.find = function (id) {
+BoolexModel.prototype.find = function (id) {
     console.log('find', id);
 
     var recurs = function (item) {
@@ -130,28 +130,28 @@ ExpModel.prototype.find = function (id) {
     }
 };
 
-ExpModel.prototype.changeField = function (id, field) {
+BoolexModel.prototype.changeField = function (id, field) {
     var item = this.find(id);
     field = field.replace(/\(|\)|,/g, '');
     item.field = field;
     return field;
 };
 
-ExpModel.prototype.changeCheck = function (id, check) {
+BoolexModel.prototype.changeCheck = function (id, check) {
     var item = this.find(id);
     check = check.replace(/\(|\)|,/g, '');
     item.check = check;
     return check;
 };
 
-ExpModel.prototype.changeValue = function (id, value) {
+BoolexModel.prototype.changeValue = function (id, value) {
     var item = this.find(id);
     item.value = value;
     value = value.replace(/\(|\)|,/g, '');
     return value;
 };
 
-ExpModel.prototype.wrap = function (id, andornot) {
+BoolexModel.prototype.wrap = function (id, andornot) {
     console.log('wrap', id, andornot);
     var item = this.find(id);
     var parent = item.parent;
@@ -174,7 +174,7 @@ ExpModel.prototype.wrap = function (id, andornot) {
     }
 };
 
-ExpModel.prototype.create = function (id) {
+BoolexModel.prototype.create = function (id) {
     console.log('create', id);
     if (id) {
         var item = this.find(id);
@@ -186,7 +186,7 @@ ExpModel.prototype.create = function (id) {
     }
 };
 
-ExpModel.prototype.remove = function (id) {
+BoolexModel.prototype.remove = function (id) {
     console.log('remove', id);
 
     var item = this.find(id);

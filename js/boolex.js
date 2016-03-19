@@ -1,6 +1,6 @@
-var exp = function (elemId, expStr, changedCallback) {
+var boolex = function (elemId, expStr, changedCallback) {
 
-    var exp1 = new ExpModel(expStr);
+    var exp1 = new BoolexModel(expStr);
     console.log(exp1);
     var container = $(elemId);
     var view = new BoolexView(container);
