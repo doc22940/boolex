@@ -4,6 +4,8 @@
     <meta charset="utf-8">
 
     <title>Boolex</title>
+    <meta name="description" content="Boolean expression visualiser"/>
+
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
@@ -48,10 +50,15 @@
         <div><img src="https://mc.yandex.ru/watch/25278200" style="position:absolute; left:-9999px;" alt=""/></div>
     </noscript> <!-- /Yandex.Metrika counter -->
 
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-6112298272240282",
+        enable_page_level_ads: true
+    });</script>
 </head>
 
 <body>
-
+<h1>Boolean expression visualiser</h1>
 <div id="expPanel" style="display: inline-block;"></div>
 
 <script>
@@ -65,7 +72,7 @@
 
     var exp1;
     if (location.hash) {
-        exp1 = boolex('#expPanel', location.hash.substr(1), expChangedCallback);
+        exp1 = boolex('#expPanel', decodeURI(location.hash.substr(1)), expChangedCallback);
     } else {
         var demo = 'and(or(==(color,black),==(color,blue)),or(and(>(screen size,13),<=(screen size,17)),contain(screen name,HD)),not(==(brand,Apple)),or(and(>(hdd,500G),>(ssd,128G)),>(ssd,256G)))';
         exp1 = boolex('#expPanel', '', expChangedCallback);
